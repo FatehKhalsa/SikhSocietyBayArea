@@ -1,0 +1,52 @@
+
+
+
+
+
+    <% include ../partials/header %>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <p class="lead">Kirtan Events</p>
+            </div>
+            <div class="col-md-9">
+                <div class="thumbnail">
+                    <img class="img-responsive" src="<%= kirtan.image %>">
+                    <div class="caption-full">
+                        <h4><a><%=kirtan.kirtanName%></a></h4>
+                        <p><%= kirtan.description %></p>
+                    </div>
+                </div>
+                <div class="well">
+                    <div class="text-right">
+                        <a class="btn btn-success" href="/kirtanEvents/<%= kirtan._id %>">Add New Comment</a>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <% include ../partials/footer %>
+
+
+
+
+
+    <!-- <% include ../partials/header %>
+
+<div class="ui main text container segment">
+        <div class="ui huge header"><%= kirtan.kirtanName %></div>
+            <div class="ui top attached">
+                <div class="item">
+                    <div class="content">
+                    </div>
+                    <div class="description">
+                    <p><%= kirtan.description %></p>
+                    </div>
+                </div>
+            </div>
+            <a class="btn btn-primary" href="/kirtanEvents">Back</a>
+    </div>
+
+    <% include ../partials/footer %>    -->

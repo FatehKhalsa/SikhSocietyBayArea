@@ -1,0 +1,35 @@
+<% include ../partials/header %>
+<div class="ui main text container">
+        <div class="ui huge header">
+            Kirtan Events
+        <a class="btn btn-primary btn-large" style="float:right;" href="/kirtanEvents/new">Add new Kirtan event</a>
+        </div>
+        <div class="ui top  attached segment">
+            <div class="ui divided items">
+                    <% KirtanEvents.forEach(function(KirtanEvent){ %>
+                        <div class="item">
+                                <div class="image">
+                                        <img src="https://scontent-sjc3-1.xx.fbcdn.net/v/t31.0-8/13738304_1072986526088233_5091994349447158541_o.jpg?oh=42e3a4c0879344c78803f8081e91fcc1&oe=5B0D340A" >
+                                    </div>
+                            <div class="content">
+                                <a class="header" href="/kirtanEvents/<%= KirtanEvent._id %>"><%=KirtanEvent.kirtanName%></a>
+                                 <div class="meta">
+                                     <span><Strong>Address: </Strong><%= KirtanEvent.location %></span>
+                                 </div>
+                                 <div class="description">
+                                     <p><%- KirtanEvent.description.substring(0, 100) %>...</p>
+                                 </div>
+                                 <div class="extra">
+                                     <a class="ui floated basic violet button" href="/kirtanEvents/<%=KirtanEvent._id %>">
+                                         Read More
+                                         <i class="right chevron icon"></i>
+                                     </a>
+                                 </div>
+                            </div>
+                        </div>
+                    <% }) %>
+            </div>
+        </div>
+    </div>
+
+    <% include ../partials/footer %>   

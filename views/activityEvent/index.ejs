@@ -1,0 +1,35 @@
+<% include ../partials/header %>
+<div class="ui main text container">
+        <div class="ui huge header">
+            Activities Events
+        <a class="btn btn-primary btn-large" style="float:right;" href="/activityEvent/new">Add new Activity event</a>
+        </div>
+        <div class="ui top  attached segment">
+            <div class="ui divided items">
+                    <% ActivityEvents.forEach(function(ActivityEvent){ %>
+                        <div class="item">
+                                <div class="image">
+                                        <img src="https://scontent-sjc3-1.xx.fbcdn.net/v/t31.0-8/10477717_835437059843182_359599385473730360_o.jpg?oh=a94707f493b1735f81d71a23a2d8dc93&oe=5B446629" >
+                                    </div>
+                            <div class="content">
+                                <a class="header" href="/activityEvent/<%= ActivityEvent._id %>"><%=ActivityEvent.activityName%></a>
+                                 <div class="meta">
+                                     <span><Strong>Address: </Strong><%= ActivityEvent.location %></span>
+                                 </div>
+                                 <div class="description">
+                                     <p><%- ActivityEvent.description.substring(0, 100) %>...</p>
+                                 </div>
+                                 <div class="extra">
+                                     <a class="ui floated basic violet button" href="/activityEvent/<%=ActivityEvent._id %>">
+                                         Read More
+                                         <i class="right chevron icon"></i>
+                                     </a>
+                                 </div>
+                            </div>
+                        </div>
+                    <% }) %>
+            </div>
+        </div>
+    </div>
+
+    <% include ../partials/footer %>   

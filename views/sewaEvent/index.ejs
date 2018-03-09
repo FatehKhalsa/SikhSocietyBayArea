@@ -1,0 +1,77 @@
+
+<% include ../partials/header %>
+<div class="container">
+<div class="ui main text container">
+        <div class="ui huge header">
+            Sewa Events
+        <a class="btn btn-primary btn-large" style="float:right;" href="/sewaEvents/new">Add new sewa event</a>
+        </div>
+        <div class="ui top  attached segment">
+            <div class="ui divided items">
+                    <% SewaEvents.forEach(function(SewaEvent){ %>
+                        <div class="item">
+                                <div class="image">
+                                        <img src="Http://www.sevafoodbank.com/wp-content/uploads/2015/10/langar-seva.jpg" >
+                                    </div>
+                            <div class="content">
+                                <a class="header" href="/sewaEvents/<%= SewaEvent._id %>"><%=SewaEvent.sewaName%></a>
+                                 <div class="meta">
+                                     <span><Strong>Address: </Strong><%= SewaEvent.location %></span>
+                                 </div>
+                                 <div class="meta">
+                                        <span><Strong>Volunteer Requested: </Strong><%= SewaEvent.VolunteerNeeded %></span>
+                                        <span style="float:right;"><Strong>Volunteer Received: <%= SewaEvent.VolunteerReceived %> </Strong></span>
+                                        <% if( SewaEvent.VolunteerReceived < SewaEvent.VolunteerNeeded ){ %>
+                                        <form id="edit" action="/sewaEvents/<%= SewaEvent._id %>?_method=PUT"  method="POST">
+                                            <input type="submit" class="VolunteerSelector" name=SewaEvent[VolunteerReceived]" value="Interested to Volunteer">
+                                        </form>    
+                                        <% } %>
+                                </div>
+                            </br>
+                                 <div class="description">
+                                     <p><%- SewaEvent.description.substring(0, 100) %>...</p>
+                                 </div>
+                                 <div class="extra">
+                                     <a class="ui floated basic violet button" href="/sewaEvents/<%=SewaEvent._id %>">
+                                         Read More
+                                         <i class="right chevron icon"></i>
+                                     </a>
+                                 </div>
+                            </div>
+                        </div>
+                    <% }) %>
+            </div>
+        </div>
+    </div>
+
+    <% if (pages > 0) { %>
+        <ul class="pagination text-center">
+            <% if (current == 1) { %>
+                <li class="disabled"><a>First</a></li>
+            <% } else { %>
+                <li><a href="/products/1">First</a></li>
+            <% } %>
+            <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+            <% if (i !== 1) { %>
+                <li class="disabled"><a>...</a></li>
+            <% } %>
+            <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                <% if (i == current) { %>
+                    <li class="active"><a><%= i %></a></li>
+                <% } else { %>
+                    <li><a href="/products/<%= i %>"><%= i %></a></li>
+                <% } %>
+                <% if (i == Number(current) + 4 && i < pages) { %>
+                    <li class="disabled"><a>...</a></li>
+                <% } %>
+            <% } %>
+            <% if (current == pages) { %>
+                <li class="disabled"><a>Last</a></li>
+            <% } else { %>
+                <li><a href="/products/<%= pages %>">Last</a></li>
+            <% } %>
+        </ul>
+    <% } %>
+</div>
+
+    <% include ../partials/footer %>   

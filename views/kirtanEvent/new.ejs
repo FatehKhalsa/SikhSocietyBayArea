@@ -1,0 +1,24 @@
+<% include ../partials/header %>
+
+<div class="ui main text container segment">
+        <div class="ui huge header">New Kirtan Event</div>
+        <form class="ui form" action="/kirtanEvents" method="POST">
+            <div class="field">
+                <label>Title</label>
+                <input type="text" name="Kirtan[kirtanName]" placeholder="name">
+            </div>
+            <div class="field">
+                    <label>Add details</label>
+                    <textarea name="Kirtan[description]" placeholder="description"></textarea>
+            </div>
+            <div class="field">
+                    <label>Address</label>
+                    <input type="text" name="Kirtan[location]" placeholder="location">
+            </div>
+            <input class="ui violet basic button" type="submit"> 
+        </form>
+        <button class="ui negative basic button" style="float:right;" href="/kirtanEvents">Cancel</button>
+</div>
+
+
+    <% include ../partials/footer %>       
