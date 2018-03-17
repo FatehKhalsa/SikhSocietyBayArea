@@ -5,23 +5,23 @@
         <form class="ui form" action="/sewaEvents/<%= SewaEvent._id %>/edit?_method=PUT" method="POST">
             <div class="field">
                 <label>Title</label>
-                <input type="text" name="Sewa[sewaName]" value="<%= Sewa.sewaName %>" required>
+                <input type="text" name="SewaEvent[sewaName]" value="<%= SewaEvent.sewaName %>" required>
             </div>
             <div class="field">
                     <label>Add details</label>
-                    <textarea name="Sewa[description]" value="<%= Sewa.description %>" required></textarea>
+                    <input name="SewaEvent[description]" value="<%= SewaEvent.description %>" required></input>
             </div>
             <div class="field">
                     <label>Address</label>
-                    <input type="text" name="Sewa[location]" value="<%= Sewa.location %>" required>
+                    <input type="text" name="SewaEvent[location]" value="<%= SewaEvent.location %>" required>
             </div>
             <div class="field">
                     <label>Items needed</label>
-                    <input type="text" name="Sewa[itemsNeeded]"  value="<%= Sewa.itemsNeeded %>">
+                    <input type="text" name="SewaEvent[itemsNeeded]"  value="<%= SewaEvent.itemsNeeded %>">
             </div>
             <div class="field">
                     <label>Volunteers needed</label>
-                    <input type="text" name="Sewa[VolunteerNeeded]" value="<%= Sewa.VolunteerNeeded %>" required="true">
+                    <input type="text" name="SewaEvent[VolunteerNeeded]" value="<%= SewaEvent.VolunteerNeeded %>" required="true">
             </div>
             <input class="btn btn-success" style="width: 100%;" type="submit"> 
         </form>

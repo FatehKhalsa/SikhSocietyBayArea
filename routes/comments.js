@@ -19,8 +19,17 @@ router.get("/new", function(req, res){
 });
 
 //Comments Create
-router.post("/", isLoggedIn, function(req, res){
+router.post("/", function(req, res){
    //lookup campground using ID
+   switch(Entity){
+       case 'SewEvent': // look up sewaEvent and associate comment with it
+                        break;
+       case 'ActivityEvent': // look up Activity Event and associate comment with it
+                        break;
+       case 'Kirtanevent': // look up KirtanEvent and associated comment with it 
+                        break;
+        default: console.log('Not able to find any assocaited entity');
+   }
    Campground.findById(req.params.id, function(err, campground){
        if(err){
            console.log(err);
@@ -31,8 +40,8 @@ router.post("/", isLoggedIn, function(req, res){
                console.log(err);
            } else {
                //add username and id to comment
-               comment.author.id = req.user._id;
-               comment.author.username = req.user.username;
+            //    comment.author.id = req.user._id;
+            //    comment.author.username = req.user.username;
                //save comment
                comment.save();
                campground.comments.push(comment);

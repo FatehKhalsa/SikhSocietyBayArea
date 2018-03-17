@@ -21,11 +21,17 @@
                                  <div class="meta">
                                         <span><Strong>Volunteer Requested: </Strong><%= SewaEvent.VolunteerNeeded %></span>
                                         <span style="float:right;"><Strong>Volunteer Received: <%= SewaEvent.VolunteerReceived %> </Strong></span>
-                                        <% if( SewaEvent.VolunteerReceived < SewaEvent.VolunteerNeeded ){ %>
-                                        <form id="edit" action="/sewaEvents/<%= SewaEvent._id %>?_method=PUT"  method="POST">
-                                            <input type="submit" class="VolunteerSelector" name=SewaEvent[VolunteerReceived]" value="Interested to Volunteer">
-                                        </form>    
-                                        <% } %>
+                                        <% if( SewaEvent.VolunteerReceived == SewaEvent.VolunteerNeeded ){ %>
+                                            <p style="color:#258e25; margin-top:10px;"><em>All requested volunteers received!</em></p>
+                                  
+                                        <% } else if(currentUser){ %> 
+                                           <%} if( SewaEvent.VolunteerReceived < SewaEvent.VolunteerNeeded) { %>
+                                                <form id="edit" action="/sewaEvents/<%= SewaEvent._id %>?_method=PUT"  method="POST">
+                                                    <input type="submit" class="VolunteerSelector" name=SewaEvent[VolunteerReceived]" value="Interested to Volunteer">
+                                                </form>    
+                                         <% } %>
+                                
+                
                                 </div>
                             </br>
                                  <div class="description">

@@ -68,6 +68,7 @@ router.post("/",function(req, res){
     })
 });
 
+// Update volunteer received
 router.put("/:id", function(req, res){
     Sewa.findById(req.params.id, function(err, FoundSewaEvent){
         if(err){console.log(err)}
@@ -86,8 +87,17 @@ router.put("/:id", function(req, res){
 
 });
 
+// Edit sewa Event 
+
+router.get("/:id/edit", function(req, res){
+    Sewa.findById(req.params.id, function(err, foundCampground){
+        console.log(foundCampground);
+        res.render("sewaEvent/edit", {SewaEvent: foundCampground});
+    });
+});
+
 router.put("/:id/edit", function(req, res){
-    Sewa.findByIdAndUpdate(req.params.id, req.body.Sewa, function(err, updatedSewaEvent){
+    Sewa.findByIdAndUpdate(req.params.id, req.body.SewaEvent, function(err, updatedSewaEvent){
         if(err){
             console.log("err");
         } else{

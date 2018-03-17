@@ -16,6 +16,11 @@
                                  <div class="meta">
                                      <span><Strong>Address: </Strong><%= KirtanEvent.location %></span>
                                  </div>
+                                 <div class="meta">
+                                        <form id="edit" action="#"  method="POST">
+                                            <input type="submit" class="VolunteerSelector" value="Interested to Go!">
+                                        </form>    
+                                </div>
                                  <div class="description">
                                      <p><%- KirtanEvent.description.substring(0, 100) %>...</p>
                                  </div>
