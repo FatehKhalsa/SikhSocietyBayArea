@@ -23,6 +23,9 @@
                     <label>Volunteers needed</label>
                     <input type="text" name="SewaEvent[VolunteerNeeded]" value="<%= SewaEvent.VolunteerNeeded %>" required="true">
             </div>
+            <div class="field">
+                        <input type="checkbox" value="<%= SewaEvent.PrivateEvent %>" name="SewaEvent[PrivateEvent]"> This is a private Event</input>
+            </div>
             <input class="btn btn-success" style="width: 100%;" type="submit"> 
         </form>
         <a class="btn btn-danger" style="width: 100%; margin-top: 10px;" href="/sewaEvents">Cancel</a>

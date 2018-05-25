@@ -1,11 +1,23 @@
 
 <% include ./partials/header %> 
 
-<h1>Login!</h1>
-<form action="/login" method="POST">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <input type="submit" value="Login!">
-</form>
+<div class="ui main text container segment">
+    <div class="ui huge header" style="text-align: center;"><em>Login</em></div>
+    <form class="ui form" action="/login" method="POST">
+        <div class="field">
+                <label>User Name</label>
+                <input type="text" name="Sewa[description]" placeholder="login" required>
+        </div>
+        <div class="field">
+                <label>Password</label>
+                <input type="password" name="Sewa[location]" placeholder="password" required>
+        </div>
+        <input type="hidden" name="Sewa[VolunteerReceived]" value="0">
+        <input class="btn btn-success" style="width: 100%;" type="submit"> 
+    </form>
+    <a class="btn btn-danger" style="width: 100%; margin-top: 10px;" href="/sewaEvents">Cancel</a>
+    <hr>
+    <a href="#">login help?</a>
+</div>
 
 <% include ./partials/footer %> 

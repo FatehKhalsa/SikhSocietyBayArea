@@ -60,7 +60,7 @@ app.use(flash());
 //     lng: 300
 // });
 
-
+app.use(flash());
 
 //require moment
 app.locals.moment = require('moment');

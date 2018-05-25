@@ -8,6 +8,7 @@ var sewaEventSchema = new mongoose.Schema({
     itemsNeeded: String,
     VolunteerNeeded: Number, 
     VolunteerReceived: Number,
+    PrivateEvent: String,
     lat: Number,
     lng: Number,
     createdAt: {
