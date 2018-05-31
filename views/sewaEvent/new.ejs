@@ -12,8 +12,8 @@
                     <textarea name="Sewa[description]" placeholder="description" required></textarea>
             </div>
             <div class="field">
-                    <label>Address</label>
-                    <input type="text" name="Sewa[location]" placeholder="location" required>
+                    <label for="location">Address</label>
+                    <input type="text" name="Sewa[location]" id="location" placeholder="location" required>
             </div>
             <div class="field">
                     <label>Items needed</label>
@@ -24,7 +24,7 @@
                     <input type="text" name="Sewa[VolunteerNeeded]" placeholder="headcount" required="true">
             </div>
             <div class="field">
-                    <input type="checkbox" checked name="Sewa[PrivateEvent]"> This is a private Event</input>
+                    <input type="checkbox" name="Sewa[PrivateEvent]"> This is a private Event</input>
             </div>
             <input type="hidden" name="Sewa[VolunteerReceived]" value="0">
             <input class="btn btn-success" style="width: 100%;" type="submit"> 

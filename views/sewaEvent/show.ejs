@@ -22,6 +22,7 @@
                         <div class="list-group">
                             <li class="list-group-item active">Google Map</li>
                         </div>
+                        <div id="map"></div>
                     </div>
                     <div class="well" style="width: 50%; margin-left: 25%;">
                          <div class="text-right">
@@ -31,11 +32,11 @@
                      </div>
                 </div>
     </span>
-
+        
     <script>
             function initMap() {
-              var lat = <%= sewa.lat %>;
-              var lng = <%= sewa.lng %>;
+              var lat = 37.584419;
+              var lng = -121.998227;
               var center = {lat: lat, lng: lng };
               var map = new google.maps.Map(document.getElementById('map'), {
                   zoom: 8,
@@ -59,4 +60,4 @@
               });
             }
           </script>
-          <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkG51lwJtDvYFKTBdRZlhzYg1D4QFsXPU&callback=initMap"></script>
+          <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCc3tN8v6YWrZ7yPJJkN9nJZHKIi0UVjIw&callback=initMap"></script>

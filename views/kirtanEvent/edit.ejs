@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+
+<div class="ui main text container segment">
+
+        <div class="ui huge header">Edit Kirtan Event</div>
+        <form class="ui form" action="/kirtanEvents/<%= Kirtan._id %>/edit?_method=PUT" method="POST">
+            <div class="field">
+                <label>Title</label>
+                <input type="text" name="Kirtan[kirtanName]" value="<%= Kirtan.kirtanName %>" required>
+            </div>
+            <div class="field">
+                    <label>Add details</label>
+                    <input name="Kirtan[description]" value="<%= Kirtan.description %>" required></input>
+            </div>
+            <div class="field">
+                    <label>Address</label>
+                    <input type="text" name="Kirtan[location]" value="<%= Kirtan.location %>" required>
+            </div>
+            <div class="field">
+                        <input type="checkbox" value="<%= Kirtan.PrivateEvent %>" name="Kirtan[PrivateEvent]"> This is a private Event</input>
+            </div>
+            <input class="btn btn-success" style="width: 100%;" type="submit"> 
+        </form>
+        <a class="btn btn-danger" style="width: 100%; margin-top: 10px;" href="/kirtanEvents/get">Cancel</a>
+</div>
+
+<% include ../partials/footer %>  

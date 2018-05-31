@@ -3,8 +3,8 @@ var router  = express.Router();
 var Sewa = require("../models/sewaEvent");
 var expressSanitizer = require("express-sanitizer");
 var middleware = require("../middleware");
-bodyParser  = require("body-parser"),
-// var { isLoggedIn, checkUserCampground, checkUserComment, isAdmin, isSafe } = middleware; // destructuring assignment
+bodyParser  = require("body-parser");
+var { isLoggedIn, isAdmin, isSafe } = middleware; // destructuring assignment
 
 
 router.use(expressSanitizer());
@@ -13,11 +13,11 @@ router.use(expressSanitizer());
 // Show the default sewa events page 
 router.get("/", function(req, res){
     var perPage = 5;
-    var page = req.params.page || 1 
-    // https://evdokimovm.github.io/javascript/nodejs/mongodb/pagination/expressjs/ejs/bootstrap/2017/08/20/create-pagination-with-nodejs-mongodb-express-and-ejs-step-by-step-from-scratch.html
+    var pageQuery = parseInt(req.query.page); 
+  	var pageNumber = pageQuery ? pageQuery : 1;
     Sewa
     .find({})
-    .skip((perPage*page)- perPage)
+    .skip((perPage*pageNumber)- perPage)
     .limit(perPage)
     .exec(function(err, SewaEvents){
         Sewa.count().exec(function(err, count){
@@ -27,7 +27,7 @@ router.get("/", function(req, res){
             else{
                 res.render("sewaEvent/index",{ 
                     SewaEvents: SewaEvents,
-                    current: page,
+                    current: pageNumber,
                     pages: Math.ceil(count / perPage)
                 });
             }
@@ -36,7 +36,7 @@ router.get("/", function(req, res){
 });
 
 // router to new event page 
-router.get("/new", function(req, res){
+router.get("/new", isLoggedIn, function(req, res){
     res.render("sewaEvent/new");
 });
 
@@ -97,13 +97,42 @@ router.get("/:id/edit", function(req, res){
 });
 
 router.put("/:id/edit", function(req, res){
+    console.log("Public Event value is:"+req.body.SewaEvent.PublicEvent);
+    if(req.body.SewaEvent.PublicEvent==='on'){
+        req.body.SewaEvent.PrivateEvent='off';
+        console.log('Turning private event off')
+    }
+    // if(req.body.SewaEvent.PrivateEvent === 'on'){
+    //     req.body.SewaEvent.PublicEvent === 'on' ? req.body.SewaEvent.PrivateEvent = 'off' : req.body.SewaEvent.PrivateEvent = 'off';
+    //     console.log("HHEE");
+    // }
+    else{
+        req.body.SewaEvent.PrivateEvent = 'on';
+        console.log("Turning private event on");
+    }
+   
     Sewa.findByIdAndUpdate(req.params.id, req.body.SewaEvent, function(err, updatedSewaEvent){
         if(err){
             console.log("err");
         } else{
+            console.log("Checkbox property is:"+req.body.SewaEvent);
             res.redirect("/sewaEvents");
         }
     }) 
+});
+
+// delete 
+
+router.delete("/:id/delete", function(req, res){
+    Sewa.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            res.redirect("/sewaEvents");
+            console.log("err");
+        } else{
+            res.redirect("/sewaEvents");
+
+        }
+    });
 });
 
 

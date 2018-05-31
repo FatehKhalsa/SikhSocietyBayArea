@@ -3,12 +3,13 @@ var mongoose = require("mongoose");
 var sewaEventSchema = new mongoose.Schema({
     sewaName: String,
     description: String,
-    location: String,
     image: String,
     itemsNeeded: String,
     VolunteerNeeded: Number, 
     VolunteerReceived: Number,
     PrivateEvent: String,
+    PublicEvent: String,
+    location: String,
     lat: Number,
     lng: Number,
     createdAt: {

@@ -6,6 +6,8 @@ var kirtanEventSchema = new mongoose.Schema({
     location: String,
     lat: Number,
     lng: Number,
+    PrivateEvent: String,
+    PublicEvent: String,
     peopleGoing: Number,
     createdAt: {
         type: Date,

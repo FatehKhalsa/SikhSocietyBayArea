@@ -20,31 +20,33 @@
                                  </div>
                                  <div class="meta">
                                         <span><Strong>Volunteer Requested: </Strong><%= SewaEvent.VolunteerNeeded %></span>
-                                        <span style="float:right;"><Strong>Volunteer Received: <%= SewaEvent.VolunteerReceived %> </Strong></span>
-                                        <% if( SewaEvent.VolunteerReceived == SewaEvent.VolunteerNeeded ){ %>
-                                            <p style="color:#258e25; margin-top:10px;"><em>All requested volunteers received!</em></p>
-                                  
-                                        <% } else if(currentUser){ %> 
-                                           <%} if( SewaEvent.VolunteerReceived < SewaEvent.VolunteerNeeded) { %>
-                                                <form id="edit" action="/sewaEvents/<%= SewaEvent._id %>?_method=PUT"  method="POST">
-                                                    <input type="submit" class="VolunteerSelector" name=SewaEvent[VolunteerReceived]" value="Interested to Volunteer">
-                                                </form>    
-                                         <% } %>
-                                
-                
+                                        <% if(SewaEvent.PrivateEvent !== 'on'){ %>
+                                            <span style="float:right;"><Strong>Volunteer Received: <%= SewaEvent.VolunteerReceived %> </Strong></span>
+                                            <% if( SewaEvent.VolunteerReceived == SewaEvent.VolunteerNeeded ){ %>
+                                                <p style="color:#258e25; margin-top:10px;"><em>All requested volunteers received!</em></p>
+                                    
+                                            <% } else if(currentUser){ %> 
+                                            <%} if( SewaEvent.VolunteerReceived < SewaEvent.VolunteerNeeded) { %>
+                                                    <form id="edit" action="/sewaEvents/<%= SewaEvent._id %>?_method=PUT"  method="POST">
+                                                        <input type="submit" class="VolunteerSelector" name=SewaEvent[VolunteerReceived]" value="Interested to Volunteer">
+                                                    </form>    
+                                            <% } %>
+                                        <% } %>
                                 </div>
                             </br>
                                  <div class="description">
                                      <p><%- SewaEvent.description.substring(0, 100) %>...</p>
                                  </div>
                                  <div class="extra">
-                                     <a class="ui floated basic violet button" href="/sewaEvents/<%=SewaEvent._id %>">
-                                         Read More
-                                         <i class="right chevron icon"></i>
-                                     </a>
-                                     <% if(SewaEvent.PrivateEvent == 'on') { %>
-                                        <span style="float:right; color:red"><String>Private Event</String></span>
-                                     <% } %>
+                                        <% if(SewaEvent.PrivateEvent !== 'on') { %>
+                                            <a class="ui floated basic violet button" href="/sewaEvents/<%=SewaEvent._id %>">
+                                                Read More
+                                                <i class="right chevron icon"></i>
+                                            </a>
+                                        <% } %>
+                                        <% if(SewaEvent.PrivateEvent == 'on') { %>
+                                            <span style="float:right; color:red"><String>Private Event</String></span>
+                                         <% } %>
                                  </div>
                             </div>
                         </div>
@@ -53,34 +55,50 @@
         </div>
     </div>
 
-    <% if (pages > 0) { %>
+
+    <% if (pages && pages > 0) { %>
         <ul class="pagination text-center">
             <% if (current == 1) { %>
-                <li class="disabled"><a>First</a></li>
+            <li class="disabled"><a>First</a></li>
             <% } else { %>
-                <li><a href="/products/1">First</a></li>
+            <li><a href="/sewaEvents">First</a></li>
             <% } %>
+     
+            <% if (current == 1) { %>
+            <li class="disabled"><a>«</a></li>
+            <% } else { %>
+            <li><a href="/sewaEvents?page=<%= Number(current) - 1 %>">«</a></li>
+            <% } %>
+     
             <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
             <% if (i !== 1) { %>
-                <li class="disabled"><a>...</a></li>
+            <li class="disabled"><a>...</a></li>
             <% } %>
             <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
-                <% if (i == current) { %>
-                    <li class="active"><a><%= i %></a></li>
-                <% } else { %>
-                    <li><a href="/products/<%= i %>"><%= i %></a></li>
-                <% } %>
-                <% if (i == Number(current) + 4 && i < pages) { %>
-                    <li class="disabled"><a>...</a></li>
-                <% } %>
-            <% } %>
-            <% if (current == pages) { %>
-                <li class="disabled"><a>Last</a></li>
+            <% if (i == current) { %>
+            <li class="active"><a><%= i %></a></li>
             <% } else { %>
-                <li><a href="/products/<%= pages %>">Last</a></li>
+            <li><a href="/sewaEvents?page=<%= i %>"><%= i %></a></li>
+            <% } %>
+            <% if (i == Number(current) + 4 && i < pages) { %>
+            <li class="disabled"><a>...</a></li>
+            <% } %>
+            <% } %>
+     
+            <% if (current == pages) { %>
+            <li class="disabled"><a>»</a></li>
+            <% } else { %>
+            <li><a href="/sewaEvents?page=<%= Number(current) + 1 %>">»</a></li>
+            <% } %>
+     
+            <% if (current == pages) { %>
+            <li class="disabled"><a>Last</a></li>
+            <% } else { %>
+            <li><a href="/sewaEvents?page=<%= pages %>">Last</a></li>
             <% } %>
         </ul>
-    <% } %>
+        <% } %>
+    
 </div>
 
     <% include ../partials/footer %>   

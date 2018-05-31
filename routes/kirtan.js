@@ -48,4 +48,21 @@ router.post("/", function(req, res){
     })
 });
 
+// edit the kirtan event
+router.get("/:id/edit", function(req, res){
+    Kirtan.findById(req.params.id, function(err, foundCampground){
+        res.render("kirtanEvent/edit", {Kirtan: foundCampground});
+    });
+});
+
+router.put("/:id/edit", function(req, res){
+    Kirtan.findByIdAndUpdate(req.params.id, req.body.Kirtan, function(err, updatedKirtanEvent){
+        if(err){
+            console.log("err");
+        } else{
+            res.redirect("/kirtanEvents");
+        }
+    }) 
+});
+
 module.exports = router;
