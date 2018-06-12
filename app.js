@@ -7,6 +7,7 @@ sewa            = require("./models/sewaEvent"),
 kirtan          = require("./models/kirtanEvent"),
 activites       = require("./models/activitiesEvent"),
 User            = require("./models/user"),
+comments        = require("./models/comments"),
 methodOverride  = require("method-override"),
 passport    = require("passport"),
 LocalStrategy = require("passport-local"),
@@ -22,8 +23,8 @@ require('dotenv').load();
 var indexRoutes      = require("./routes/index"),
     sewaRoutes       = require("./routes/sewa"),
     kirtanRoutes     = require("./routes/kirtan"),
-    activityRoutes         = require("./routes/activity")
-    // commentsRoutes   = require("./routes/comments")
+    activityRoutes         = require("./routes/activity"),
+    commentsRoutes   = require("./routes/comments")
 
 // PASSPORT CONFIGURATION
 
@@ -90,6 +91,7 @@ app.use("/", indexRoutes);
 app.use("/sewaEvents", sewaRoutes);
 app.use("/kirtanEvents", kirtanRoutes);
 app.use("/activityEvent", activityRoutes);
+app.use("/sewa/:id/comments", commentsRoutes);
 
 app.listen(3000, function(){
     console.log("The Bay Area Sikh Society Server Has Started!");
