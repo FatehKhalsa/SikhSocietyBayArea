@@ -1,8 +1,10 @@
 var express = require("express");
 var router  = express.Router({mergeParams: true});
+var sewa = require("../models/sewaEvent");
 var Kirtan = require("../models/kirtanEvent");
 var Comment = require("../models/comments");
 var middleware = require("../middleware");
+const { isLoggedIn, checkUserComment } = middleware;
 
 
 //Comments New
@@ -18,41 +20,43 @@ router.get("/new", function(req, res){
     })
 });
 
-//Comments Create
-router.post("/", function(req, res){
    //lookup campground using ID
-   switch(Entity){
-       case 'SewEvent': // look up sewaEvent and associate comment with it
-                        break;
-       case 'ActivityEvent': // look up Activity Event and associate comment with it
-                        break;
-       case 'Kirtanevent': // look up KirtanEvent and associated comment with it 
-                        break;
-        default: console.log('Not able to find any assocaited entity');
-   }
-   Campground.findById(req.params.id, function(err, campground){
-       if(err){
-           console.log(err);
-           res.redirect("/campgrounds");
-       } else {
-        Comment.create(req.body.comment, function(err, comment){
-           if(err){
-               console.log(err);
-           } else {
-               //add username and id to comment
-            //    comment.author.id = req.user._id;
-            //    comment.author.username = req.user.username;
-               //save comment
-               comment.save();
-               campground.comments.push(comment);
-               campground.save();
-               console.log(comment);
-               res.redirect('/campgrounds/' + campground._id);
-           }
-        });
-       }
-   });
-});
+//    switch(Entity){
+//        case 'SewEvent': // look up sewaEvent and associate comment with it
+//                         break;
+//        case 'ActivityEvent': // look up Activity Event and associate comment with it
+//                         break;
+//        case 'Kirtanevent': // look up KirtanEvent and associated comment with it 
+//                         break;
+//         default: console.log('Not able to find any assocaited entity');
+//    }
+//Comments Create
+router.post("/", isLoggedIn, function(req, res){
+    //lookup campground using ID
+    sewa.findById(req.params.id, function(err, sewa){
+        if(err){
+            console.log(err);
+            res.redirect("/sewaEvents");
+        } else {
+         Comment.create(req.body.comment, function(err, comment){
+            if(err){
+                console.log(err);
+            } else {
+                //add username and id to comment
+                comment.author.id = req.user._id;
+                comment.author.username = req.user.username;
+                //save comment
+                comment.save();
+                sewa.comments.push(comment);
+                sewa.save();
+                console.log(comment);
+                req.flash('success', 'Created a comment!');
+                // res.redirect('/sewaEvents/' + sewa._id);
+            }
+         });
+        }
+    });
+ });
 
 // COMMENT EDIT ROUTE
 router.get("/:comment_id/edit", function(req, res){
