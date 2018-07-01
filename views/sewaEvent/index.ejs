@@ -12,9 +12,15 @@
                         <div class="item">
                                 <div class="image">
                                         <img src="Http://www.sevafoodbank.com/wp-content/uploads/2015/10/langar-seva.jpg" >
-                                    </div>
+                                 </div>
+                            
                             <div class="content">
+                            <% if(SewaEvent.author.username !== currentUser){ %>
+                                <% if(SewaEvent.PrivateEvent !== 'on'){ %>    
                                 <a class="header" href="/sewaEvents/<%= SewaEvent._id %>"><%=SewaEvent.sewaName%></a>
+                                <% } else { %>
+                                    <a class="header"><%=SewaEvent.sewaName%></a>
+                                <% } %>    
                                  <div class="meta">
                                      <span><Strong>Address: </Strong><%= SewaEvent.location %></span>
                                  </div>
@@ -25,7 +31,6 @@
                                             <% if( SewaEvent.VolunteerReceived == SewaEvent.VolunteerNeeded ){ %>
                                                 <p style="color:#258e25; margin-top:10px;"><em>All requested volunteers received!</em></p>
                                     
-                                            <% } else if(currentUser){ %> 
                                             <%} if( SewaEvent.VolunteerReceived < SewaEvent.VolunteerNeeded) { %>
                                                     <form id="edit" action="/sewaEvents/<%= SewaEvent._id %>?_method=PUT"  method="POST">
                                                         <input type="submit" class="VolunteerSelector" name=SewaEvent[VolunteerReceived]" value="Interested to Volunteer">
@@ -33,6 +38,19 @@
                                             <% } %>
                                         <% } %>
                                 </div>
+                               <% } else { %>
+                                <a class="header" href="/sewaEvents/<%= SewaEvent._id %>"><%=SewaEvent.sewaName%></a>
+                                <div class="meta">
+                                        <span><Strong>Address: </Strong><%= SewaEvent.location %></span>
+                                </div>
+                                    <div class="meta">
+                                           <span><Strong>Volunteer Requested: </Strong><%= SewaEvent.VolunteerNeeded %></span>
+                                           <span style="float:right;"><Strong>Volunteer Received: <%= SewaEvent.VolunteerReceived %> </Strong></span>
+                                           <% if( SewaEvent.VolunteerReceived == SewaEvent.VolunteerNeeded ){ %>
+                                               <p style="color:#258e25; margin-top:10px;"><em>All requested volunteers received!</em></p>
+                                            <% } %>
+                                    </div>
+
                             </br>
                                  <div class="description">
                                      <p><%- SewaEvent.description.substring(0, 100) %>...</p>
@@ -44,14 +62,11 @@
                                                 <i class="right chevron icon"></i>
                                             </a>
                                         <% } %>
-                                        <% if(SewaEvent.PrivateEvent == 'on') { %>
-                                            <span style="float:right; color:red"><String>Private Event</String></span>
-                                         <% } %>
                                  </div>
+                                 <% } %>
                             </div>
                         </div>
                     <% }) %>
-            </div>
         </div>
     </div>
 

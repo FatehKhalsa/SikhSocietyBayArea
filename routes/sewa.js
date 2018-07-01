@@ -43,12 +43,13 @@ router.get("/new", isLoggedIn, function(req, res){
 
 
 // Show the detail page for that particular event
-router.get("/:id", function(req,res){
+router.get("/:id", isLoggedIn, function(req,res){
     Sewa.findById(req.params.id, function(err, foundSewa){
         if(err){
             console.log(err);
         }
         else{
+            console.log(foundSewa);
             res.render("sewaEvent/show", {sewa: foundSewa});
         }
     })
@@ -56,8 +57,25 @@ router.get("/:id", function(req,res){
 
 
 // post data for new event page 
-router.post("/",function(req, res){
-    req.body.Sewa.description = req.sanitize(req.body.Sewa.description);
+router.post("/", isLoggedIn, function(req, res){
+    var name=req.body.Sewa.sewaName;
+    const desc= req.body.Sewa.description;
+    const location = req.body.location;
+    const itemNeeded = req.body.itemsNeeded;
+    const VolunteerNeeded = req.body.VolunteerNeeded;
+    const VolunteerReceived = req.body.VolunteerReceived;
+    const author = {
+        id: req.user._id,
+        username: req.user.username
+    }
+    let PrivateEvent="null";
+    let PublicEvent="null";
+    req.body.PrivateEvent ? PrivateEvent=req.body.PrivateEvent: PublicEvent=req.body.PublicEvent;
+    console.log("User is:"+author.username);
+    req.body.Sewa.author=author;
+    // req.body.Sewa.description = req.sanitize(req.body.Sewa.description);
+    const newSewaEvent = {ewaName: name};
+
     Sewa.create(req.body.Sewa, function(err, redirectToSewaEvents){
         if(err){
             console.log(err);

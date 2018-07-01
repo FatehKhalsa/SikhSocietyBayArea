@@ -12,25 +12,36 @@
                 </div>
             </div>
         <hr>
+        <% if(sewa.author.username === currentUser.username){ %>
             <a class="btn btn-danger" style="width:100px;" href="/sewaEvents/<%= sewa._id%>/edit">Edit</a>
+        <% } %>
             <a class="btn btn-primary" style="float: right; width:100px;" href="/sewaEvents">Back</a>
 </div>
     <span>
             <div class="row">
                     <div class="col-md-3">
-                        <p class="lead">Address Map</p>
                         <div class="list-group">
                             <li class="list-group-item active">Google Map</li>
                         </div>
                         <div id="map"></div>
                     </div>
-                    <div class="well" style="width: 50%; margin-left: 25%;">
-                         <div class="text-right">
-                            <a class="btn btn-success" href="#">Add New Comment</a>
-                         </div>
-                         <hr>
+                    <div class="well" style="width: 42%; margin-left: 29%; margin-right: 29%">
+                            <div class="container" style="width: 42%";>
+                                <h1 style="text-align: center">Add New Comment to <%= sewa.name %></h1>
+                                <div style="width: 30%; margin: 25px auto;"></div>
+                                    <form action="/sewa/<%= sewa._id %>/comments" method="POST">
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" name="comment[text]" placeholder="text">
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                                        </div>
+                                    </form>
+                                    <a href="/sewaEvents">Go Back</a>
+                                </div>
+                            </div>
                      </div>
-                </div>
+            </div>
     </span>
         
     <script>
@@ -39,7 +50,7 @@
               var lng = -121.998227;
               var center = {lat: lat, lng: lng };
               var map = new google.maps.Map(document.getElementById('map'), {
-                  zoom: 8,
+                  zoom: 18,
                   center: center,
                   scrollwheel: false
               });
